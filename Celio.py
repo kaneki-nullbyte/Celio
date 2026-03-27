@@ -8,65 +8,147 @@ from urllib.parse import urlparse
 import os
 
 # --- Colors ---
+# Reset
 C_RESET = '\033[0m'
-C_RED = '\033[91m'
-C_GREEN = '\033[92m'
-C_YELLOW = '\033[93m'
-C_CYAN = '\033[96m'
-C_WHITE = '\033[97m'
+
+# Regular Colors
+C_BLACK   = '\033[30m'
+C_RED     = '\033[31m'
+C_GREEN   = '\033[32m'
+C_YELLOW  = '\033[33m'
+C_BLUE    = '\033[34m'
+C_MAGENTA = '\033[35m'
+C_CYAN    = '\033[36m'
+C_WHITE   = '\033[37m'
+
+# Bright (Premium Look)
+C_BRED     = '\033[91m'
+C_BGREEN   = '\033[92m'
+C_BYELLOW  = '\033[93m'
+C_BBLUE    = '\033[94m'
+C_BMAGENTA = '\033[95m'
+C_BCYAN    = '\033[96m'
+C_BWHITE   = '\033[97m'
+
+# Styles (Premium UI feel)
+C_BOLD      = '\033[1m'
+C_DIM       = '\033[2m'
+C_ITALIC    = '\033[3m'
+C_UNDERLINE = '\033[4m'
+C_BLINK     = '\033[5m'
+C_REVERSE   = '\033[7m'
+
+# Background Colors
+C_BG_RED     = '\033[41m'
+C_BG_GREEN   = '\033[42m'
+C_BG_YELLOW  = '\033[43m'
+C_BG_BLUE    = '\033[44m'
+C_BG_MAGENTA = '\033[45m'
+C_BG_CYAN    = '\033[46m'
+C_BG_WHITE   = '\033[47m'
 
 # --- General Settings ---
-user_agents = [
-    # Windows Chrome / Edge
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.110 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.6167.85 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Edge/120.0.2210.91",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Edge/121.0.2277.83",
+user_agents += [
 
-    # Firefox
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:122.0) Gecko/20100101 Firefox/122.0",
+# --- Windows Chrome (20) ---
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.6099.110 Safari/537.36",
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120.0.6099.199 Safari/537.36",
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/121.0.6167.85 Safari/537.36",
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/121.0.6167.160 Safari/537.36",
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/122.0.6261.94 Safari/537.36",
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/122.0.6261.128 Safari/537.36",
+"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 Chrome/120.0.6099.144 Safari/537.36",
+"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 Chrome/121.0.6167.140 Safari/537.36",
+"Mozilla/5.0 (Windows NT 11.0; Win64; x64) AppleWebKit/537.36 Chrome/122.0.6261.111 Safari/537.36",
+"Mozilla/5.0 (Windows NT 11.0; Win64; x64) AppleWebKit/537.36 Chrome/123.0.6312.86 Safari/537.36",
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/123.0.6312.58 Safari/537.36",
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/123.0.6312.122 Safari/537.36",
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0.6367.91 Safari/537.36",
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0.6367.155 Safari/537.36",
+"Mozilla/5.0 (Windows NT 11.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0.6367.78 Safari/537.36",
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/119.0.6045.200 Safari/537.36",
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/118.0.5993.120 Safari/537.36",
+"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 Chrome/109.0.5414.120 Safari/537.36",
+"Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 Chrome/110.0.5481.177 Safari/537.36",
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/117.0.5938.150 Safari/537.36",
 
-    # macOS Safari / Chrome
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 13_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.6167.85 Safari/537.36",
+# --- Edge (10) ---
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Edge/120.0.2210.91",
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Edge/121.0.2277.83",
+"Mozilla/5.0 (Windows NT 11.0; Win64; x64) AppleWebKit/537.36 Edge/122.0.2365.92",
+"Mozilla/5.0 (Windows NT 11.0; Win64; x64) AppleWebKit/537.36 Edge/123.0.2420.65",
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Edge/124.0.2478.67",
+"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 Edge/120.0.2210.121",
+"Mozilla/5.0 (Windows NT 11.0; Win64; x64) AppleWebKit/537.36 Edge/122.0.2365.80",
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Edge/121.0.2277.128",
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Edge/123.0.2420.53",
+"Mozilla/5.0 (Windows NT 11.0; Win64; x64) AppleWebKit/537.36 Edge/124.0.2478.51",
 
-    # Android Chrome
-    "Mozilla/5.0 (Linux; Android 13; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.144 Mobile Safari/537.36",
-    "Mozilla/5.0 (Linux; Android 14; Pixel 7 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.6167.101 Mobile Safari/537.36",
+# --- Firefox (10) ---
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0",
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0",
+"Mozilla/5.0 (Windows NT 11.0; Win64; x64; rv:122.0) Gecko/20100101 Firefox/122.0",
+"Mozilla/5.0 (Windows NT 11.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+"Mozilla/5.0 (Windows NT 10.0; WOW64; rv:124.0) Gecko/20100101 Firefox/124.0",
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:119.0) Gecko/20100101 Firefox/119.0",
+"Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:115.0) Gecko/20100101 Firefox/115.0",
+"Mozilla/5.0 (Windows NT 6.3; WOW64; rv:118.0) Gecko/20100101 Firefox/118.0",
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:117.0) Gecko/20100101 Firefox/117.0",
+"Mozilla/5.0 (Windows NT 11.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
 
-    # iPhone Safari
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1",
+# --- macOS (10) ---
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 13_5) AppleWebKit/605.1.15 Version/17.0 Safari/605.1.15",
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 13_6) AppleWebKit/605.1.15 Version/17.1 Safari/605.1.15",
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/537.36 Chrome/121.0.6167.85 Safari/537.36",
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 14_1) AppleWebKit/537.36 Chrome/122.0.6261.94 Safari/537.36",
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 14_2) AppleWebKit/537.36 Chrome/123.0.6312.86 Safari/537.36",
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 14_3) AppleWebKit/537.36 Chrome/124.0.6367.91 Safari/537.36",
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 12_6) AppleWebKit/605.1.15 Version/16.5 Safari/605.1.15",
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 11_7) AppleWebKit/605.1.15 Version/15.6 Safari/605.1.15",
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/15.1 Safari/605.1.15",
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 13_4) AppleWebKit/537.36 Chrome/120.0.6099.110 Safari/537.36",
 
-    # iPad
-    "Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
+# --- Android (20) ---
+"Mozilla/5.0 (Linux; Android 13; SM-S918B) AppleWebKit/537.36 Chrome/120.0.6099.144 Mobile Safari/537.36",
+"Mozilla/5.0 (Linux; Android 14; Pixel 7 Pro) AppleWebKit/537.36 Chrome/121.0.6167.101 Mobile Safari/537.36",
+"Mozilla/5.0 (Linux; Android 13; SM-A515F) AppleWebKit/537.36 Chrome/120.0.6099.210 Mobile Safari/537.36",
+"Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 Chrome/123.0.6312.80 Mobile Safari/537.36",
+"Mozilla/5.0 (Linux; Android 12; Poco X3 Pro) AppleWebKit/537.36 Chrome/120.0.6099.193 Mobile Safari/537.36",
+"Mozilla/5.0 (Linux; Android 13; Redmi Note 11) AppleWebKit/537.36 Chrome/121.0.6167.165 Mobile Safari/537.36",
+"Mozilla/5.0 (Linux; Android 14; OnePlus 11) AppleWebKit/537.36 Chrome/122.0.6261.105 Mobile Safari/537.36",
+"Mozilla/5.0 (Linux; Android 12; SM-G991B) AppleWebKit/537.36 Chrome/119.0.6045.194 Mobile Safari/537.36",
+"Mozilla/5.0 (Linux; Android 13; SM-A725F) AppleWebKit/537.36 Chrome/121.0.6167.140 Mobile Safari/537.36",
+"Mozilla/5.0 (Linux; Android 11; Redmi Note 10) AppleWebKit/537.36 Chrome/118.0.5993.120 Mobile Safari/537.36",
 
-    # Linux Desktop
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.110 Safari/537.36",
-    "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:121.0) Gecko/20100101 Firefox/121.0",
+# --- iPhone (10) ---
+"Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 Version/17.0 Mobile Safari/604.1",
+"Mozilla/5.0 (iPhone; CPU iPhone OS 17_2 like Mac OS X) AppleWebKit/605.1.15 Version/17.2 Mobile Safari/604.1",
+"Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 Version/16.6 Mobile Safari/604.1",
+"Mozilla/5.0 (iPhone; CPU iPhone OS 15_7 like Mac OS X) AppleWebKit/605.1.15 Version/15.7 Mobile Safari/604.1",
+"Mozilla/5.0 (iPhone; CPU iPhone OS 14_8 like Mac OS X) AppleWebKit/605.1.15 Version/14.8 Mobile Safari/604.1",
+"Mozilla/5.0 (iPhone; CPU iPhone OS 17_1 like Mac OS X) AppleWebKit/605.1.15 Version/17.1 Mobile Safari/604.1",
+"Mozilla/5.0 (iPhone; CPU iPhone OS 16_7 like Mac OS X) AppleWebKit/605.1.15 Version/16.7 Mobile Safari/604.1",
+"Mozilla/5.0 (iPhone; CPU iPhone OS 15_6 like Mac OS X) AppleWebKit/605.1.15 Version/15.6 Mobile Safari/604.1",
+"Mozilla/5.0 (iPhone; CPU iPhone OS 14_7 like Mac OS X) AppleWebKit/605.1.15 Version/14.7 Mobile Safari/604.1",
+"Mozilla/5.0 (iPhone; CPU iPhone OS 13_7 like Mac OS X) AppleWebKit/605.1.15 Version/13.7 Mobile Safari/604.1"
 
-    # Older realistic mix (still useful)
-    "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.5414.75 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Safari/605.1.15",
-
-    # Bots / crawlers (optional use)
-    "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
-    "Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm)"
 ]
 
 proxies = []
 
 # --- ASCII Banner ---
 banner = f"""
-{C_GREEN}
-   ______      __  _       
-  / ____/___  / /_(_)___ _
- / /   / __ \/ __/ / __ `/
-/ /___/ /_/ / /_/ / /_/ / 
-\____/\____/\__/_/\__,_/  
-                          
+{C_BOLD}{C_BCYAN}
+   ██████╗ ███████╗██╗     ██╗ ██████╗ ██╗     
+  ██╔════╝ ██╔════╝██║     ██║██╔═══██╗██║     
+  ██║  ███╗█████╗  ██║     ██║██║   ██║██║     
+  ██║   ██║██╔══╝  ██║     ██║██║   ██║██║     
+  ╚██████╔╝███████╗███████╗██║╚██████╔╝███████╗
+   ╚═════╝ ╚══════╝╚══════╝╚═╝ ╚═════╝ ╚══════╝
 {C_RESET}
+
+{C_BOLD}{C_BGREEN}            >>> CELIO DDOS TOOL <<< {C_RESET}
+{C_BYELLOW}            Version : 2.0 | Status : ACTIVE{C_RESET}
 """
 
 
